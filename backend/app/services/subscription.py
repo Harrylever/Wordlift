@@ -118,14 +118,10 @@ class SubscriptionService:
 
         credits_to_add = 0
 
-        if create_plan_subscription_dto.plan_code == "PLN_3vep38hsat9s4tf":
+        if create_plan_subscription_dto.plan_code == settings.PAYSTACK_PLAN_CODE_PROFESSSIONAL:
             credits_to_add = 250
-        elif create_plan_subscription_dto.plan_code == "PLN_5rwu5dp0li059aj":
-            credits_to_add = 250 * 12
-        elif create_plan_subscription_dto.plan_code == "PLN_bgmrx6f11sac6em":
+        elif create_plan_subscription_dto.plan_code == settings.PAYSTACK_PLAN_CODE_ENTERPRISE:
             credits_to_add = 520
-        elif create_plan_subscription_dto.plan_code == "PLN_7qf7zrmkygc363k":
-            credits_to_add = 520 * 12
 
         credit_balance = user.credit_balance + credits_to_add
 

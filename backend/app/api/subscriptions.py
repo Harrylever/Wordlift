@@ -4,7 +4,7 @@ from typing import Dict
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
-from app.core.security import get_current_user
+from app.core.security import get_current_user, UserObject
 from app.services.user import UserService
 from app.services.subscription import SubscriptionService
 from app.orm.repositories.subscription.dtos.subscription_dto import (
@@ -21,7 +21,7 @@ class SubscriptionAPI:
     API class for subscription operations
     """
 
-    def __init__(self, session: AsyncSession, current_user: Dict):
+    def __init__(self, session: AsyncSession, current_user: UserObject):
         """
         Initialize the subscription API with a database session
         """
@@ -42,7 +42,7 @@ class SubscriptionAPI:
 
     async def create_plan_subscription(self, payload: CreateSubscriptionInServiceDto):
         """Create plan subscription for user"""
-        user_email = self.current_user.get("email_addresses")[0].get("email_address")
+        user_email = self.current_user.email
 
         create_plan_subscription_dto = CreatePlanSubscriptionDto(
             plan_code=payload.plan_code,
@@ -56,12 +56,12 @@ class SubscriptionAPI:
 
     async def get_user_active_subscription(self):
         """Get user active subscription"""
-        user_id = self.current_user.get("user_db_id")
+        user_id = self.current_user.id
         return await self.subscription_service.get_active_subscription(user_id)
 
     async def initialize_payment(self, payload: InitializePaymentDto):
         """Initialize Payment"""
-        user_email = self.current_user.get("email_addresses")[0].get("email_address")
+        user_email = self.current_user.email
         return await self.subscription_service.initialize_payment(user_email, payload)
 
 

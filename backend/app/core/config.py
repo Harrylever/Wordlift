@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     PAYSTACK_BACKEND_URL: str
     PAYSTACK_SECRET_KEY: str
 
+    PAYSTACK_PLAN_CODE_PROFESSSIONAL: str
+    PAYSTACK_PLAN_CODE_ENTERPRISE: str
+
     @property
     def get_cors_origins(self) -> List[str]:
         """Get Cors Origins"""

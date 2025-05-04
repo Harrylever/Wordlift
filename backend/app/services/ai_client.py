@@ -32,7 +32,7 @@ class AiClientService:
         )
         response_text = response.text
 
-        return {"summary": response_text}
+        return {"analysis": response_text}
 
     def build_prompt(self, prompt_data: PromptDto):
         """
