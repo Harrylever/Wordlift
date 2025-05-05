@@ -51,7 +51,7 @@ class AuthAPI:
             value=access_token,
             httponly=False,
             secure=True,
-            samesite="lax",
+            samesite="none",
             expires=datetime.now(timezone.utc) + timedelta(days=7),
             path="/",
         )
