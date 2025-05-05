@@ -54,6 +54,7 @@ export default function PricingSection() {
               features={plan.features}
               isPopular={plan.isPopular}
               buttonVariant={plan.buttonVariant}
+              onPaymentSuccess={() => {}}
             />
           ))}
         </div>
