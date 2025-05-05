@@ -1,7 +1,7 @@
 "use client"
 
 import { useGetUserInfo } from "@/app/board/plans/(hooks)"
-import { marketinsights_plans } from "@/app/board/plans/data"
+import { wordlift_plans } from "@/app/board/plans/data"
 import { Loader2 } from "lucide-react"
 
 export const GetSidebarUserInfo = () => {
@@ -45,11 +45,11 @@ export const GetSidebarUserInfo = () => {
     )
   }
 
-  const marketInsightPlan = marketinsights_plans.find(
+  const wordliftPlan = wordlift_plans.find(
     (plan) => plan.plan_code === userSubscription.plan_code
   )
 
-  if (!marketInsightPlan) {
+  if (!wordliftPlan) {
     return (
       <>
         <ReturnUserName firstName={firstName} />
@@ -61,7 +61,7 @@ export const GetSidebarUserInfo = () => {
   return (
     <>
       <ReturnUserName firstName={firstName} />
-      <span className="block text-xs text-slate-500">{`${marketInsightPlan.name} Plan`}</span>
+      <span className="block text-xs text-slate-500">{`${wordliftPlan.name} Plan`}</span>
     </>
   )
 }

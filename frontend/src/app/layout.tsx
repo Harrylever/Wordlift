@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MarketInsight",
-  description: "Generate the right market plan for your business",
+  title: "WordLift",
+  description: "AI Content Enhancer",
 }
 
 export default function RootLayout({

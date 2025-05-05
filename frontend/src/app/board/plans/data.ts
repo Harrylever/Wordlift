@@ -1,6 +1,6 @@
 import { IPlan } from "./types"
 
-export const marketinsights_plans: IPlan[] = [
+export const wordlift_plans: IPlan[] = [
   {
     id: "1",
     plan_code: process.env.NEXT_PUBLIC_PAYSTACK_PLAN_PROFESSIONAL as string,

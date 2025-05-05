@@ -1,7 +1,7 @@
 "use client"
 
 import moment from "moment"
-import { marketinsights_plans } from "../data"
+import { wordlift_plans } from "../data"
 import { ISubscription } from "../types"
 
 interface CurrentPlanTabProps {
@@ -13,16 +13,16 @@ export const CurrentPlanTab = ({ plan }: CurrentPlanTabProps) => {
   if (!plan)
     return <PlanTab planName="Free" amount={0} interval="No interval" />
 
-  const marketInsightPlan = marketinsights_plans.find((p) => p.plan_code === plan.plan_code)
+  const wordliftPlan = wordlift_plans.find((p) => p.plan_code === plan.plan_code)
 
-  if (!marketInsightPlan)
+  if (!wordliftPlan)
     return <PlanTab planName="Free" amount={0} interval="No interval" />
 
   return (
     <PlanTab
-      planName={marketInsightPlan.name}
-      amount={marketInsightPlan.amount}
-      interval={marketInsightPlan.interval}
+      planName={wordliftPlan.name}
+      amount={wordliftPlan.amount}
+      interval={wordliftPlan.interval}
       expiresAt={plan.expires_at}
     />
   )
