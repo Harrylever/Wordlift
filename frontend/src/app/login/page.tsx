@@ -1,48 +1,59 @@
 import type React from "react"
 import Link from "next/link"
-import { ArrowLeft, BarChart3 } from "lucide-react"
+import { ArrowLeft, Edit3 } from "lucide-react"
 import FormSection from "./(components)/form-section"
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export default function LoginPage() {
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col items-center justify-center bg-purple-50 p-4">
       <Link href="/" className="absolute top-20 left-20 hidden md:block">
         <ArrowLeft size={25} className="text-black" />
       </Link>
-      <div className="flex min-h-screen w-full flex-col bg-slate-50">
-        <div className="container mx-auto flex flex-col items-center justify-center px-4 py-8 md:h-screen md:px-6">
-          <div className="flex w-full items-center justify-between md:justify-center mb-8">
-            <Link href="/" className="md:hidden">
-              <ArrowLeft size={25} className="text-black" />
-            </Link>
-            <Link href="/" className="flex items-center gap-2 w-fit">
-              <BarChart3 className="h-6 w-6 text-teal-600" />
-              <span className="text-xl font-bold">MarketInsight</span>
-            </Link>
-            <div className="md:hidden" />
-          </div>
-          <div className="mx-auto grid w-full max-w-md gap-6">
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Welcome back
-              </h1>
-              <p className="text-sm text-slate-600 font-mono">
-                Enter your email and password to sign in to your account
-              </p>
-            </div>
-            {/* Form Section */}
-            <FormSection />
 
-            <div className="mt-4 text-center text-sm font-mono">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/signup"
-                className="font-medium text-teal-600 hover:text-teal-700"
-              >
-                Sign up
-              </Link>
-            </div>
-          </div>
+      <div className="flex w-full items-center justify-between md:justify-center mb-8">
+        <Link href="/" className="md:hidden">
+          <ArrowLeft size={25} className="text-black" />
+        </Link>
+        <Link href="/" className="flex items-center gap-2">
+          <Edit3 className="h-8 w-8 text-purple-600" />
+          <span className="text-2xl font-bold">WordLift</span>
+        </Link>
+        <div className="md:hidden" />
+      </div>
+
+      <Card className="w-full max-w-md border-purple-100 shadow-lg">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">
+            Welcome back
+          </CardTitle>
+          <CardDescription className="text-center">
+            Enter your email and password to access your account
+          </CardDescription>
+        </CardHeader>
+        <FormSection />
+      </Card>
+
+      <div className="mt-8 text-center text-sm text-muted-foreground">
+        <p>© {new Date().getFullYear()} WordLift. All rights reserved.</p>
+        <div className="mt-2 flex justify-center space-x-4">
+          <Link
+            href="#"
+            className="hover:text-purple-600 hover:underline underline-offset-4"
+          >
+            Terms of Service
+          </Link>
+          <Link
+            href="#"
+            className="hover:text-purple-600 hover:underline underline-offset-4"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </div>

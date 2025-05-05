@@ -1,26 +1,31 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import Link from "next/link"
 import { Button } from "./ui/button"
-import { CheckCircle2 } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { CheckCircle } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card"
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 type PricingPlanProps = {
   title: string
   description: string
   price: number
-  features: { included: boolean; text: string }[]
-  buttonText: string
-  popular?: boolean
+  features: string[]
+  isPopular: boolean
+  buttonVariant: string
   userPlan?: string
-  userEmail?: string
   planCode?: string
-  onPaymentSuccess: ({
-    reference,
-    selectedPlanCode,
-  }: {
+  userEmail?: string
+  onPaymentSuccess: (data: {
     reference: string
     selectedPlanCode: string
   }) => void
@@ -60,8 +65,8 @@ export const PricingPlan = ({
   description,
   price,
   features,
-  buttonText,
-  popular = false,
+  isPopular = false,
+  buttonVariant = "outline",
   userPlan,
   userEmail,
   planCode,
@@ -94,49 +99,57 @@ export const PricingPlan = ({
   const planIsActive = userPlan === planCode
 
   return (
-    <div
-      className={`relative flex flex-col rounded-xl border ${
-        popular ? "border-teal-200" : ""
-      } bg-white p-6 ${popular ? "shadow-md" : "shadow-sm"}`}
+    <Card
+      className={`flex flex-col ${
+        isPopular ? "border-purple-600 shadow-lg" : "border-purple-100"
+      }`}
     >
-      {popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-teal-600 px-4 py-1 text-xs font-semibold text-white">
-          Most Popular
+      <CardHeader className={isPopular ? "bg-purple-50 rounded-t-lg" : ""}>
+        {isPopular && (
+          <div className="py-1 px-3 text-xs font-medium text-purple-800 bg-purple-100 rounded-full w-fit mx-auto mb-2">
+            Most Popular
+          </div>
+        )}
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+        <div className="mt-4 flex items-baseline text-4xl font-bold">
+          {`₦${price.toLocaleString("en")}`}
+          <span className="ml-1 text-sm font-medium text-muted-foreground">
+            /month
+          </span>
         </div>
-      )}
-      <div className="space-y-2">
-        <h3 className="text-xl font-bold font-mono">{title}</h3>
-        <p className="text-sm text-slate-600 font-mono">{description}</p>
-      </div>
-      <div className="mt-4 flex items-baseline">
-        <span className="text-3xl font-bold">{`₦${price.toLocaleString(
-          "en"
-        )}`}</span>
-        <span className="ml-1 text-sm text-slate-600">/month</span>
-      </div>
-      <ul className="mt-6 space-y-3">
-        {features.map((feature, index) => (
-          <FeatureItem
-            key={index}
-            included={feature.included}
-            text={feature.text}
-          />
-        ))}
-      </ul>
-      <div className="mt-6 pt-6 border-t">
+      </CardHeader>
+      <CardContent className="flex-1">
+        <ul className="space-y-2 text-sm">
+          {features.map((feature, i) => (
+            <li key={i} className="flex items-center">
+              <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+      <CardFooter>
         {clientReady && (
           <>
             {pathname === "/" ? (
               <Button
-                asChild
-                className="w-full bg-teal-600 hover:bg-teal-700 font-mono"
+                variant={buttonVariant as "outline" | "default"}
+                {...(isPopular
+                  ? { className: "w-full bg-purple-600 hover:bg-purple-700" }
+                  : { className: "w-full" })}
               >
-                <Link href="/">{buttonText}</Link>
+                Get Started
               </Button>
             ) : (
               <PaystackButton
-                disabled={planIsActive || isVerifyingPayment}
-                className="w-full bg-teal-600 hover:bg-teal-700 font-mono text-white rounded-lg py-2"
+                className={cn(
+                  "py-2 rounded-lg",
+                  isPopular
+                    ? "w-full bg-purple-600 hover:bg-purple-700 text-white"
+                    : "w-full border"
+                )}
+                disabled={isVerifyingPayment || planIsActive}
                 {...paystackButtonComponentProps}
               >
                 {planIsActive ? "Plan is active" : "Get Started"}
@@ -144,26 +157,7 @@ export const PricingPlan = ({
             )}
           </>
         )}
-      </div>
-    </div>
-  )
-}
-
-const FeatureItem = ({
-  included,
-  text,
-}: {
-  included: boolean
-  text: string
-}) => {
-  return (
-    <li className={`flex items-start ${!included ? "text-slate-400" : ""}`}>
-      <CheckCircle2
-        className={`mr-2 h-5 w-5 ${
-          included ? "text-teal-600" : "text-slate-300"
-        } shrink-0 mt-0.5`}
-      />
-      <span>{text}</span>
-    </li>
+      </CardFooter>
+    </Card>
   )
 }

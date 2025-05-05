@@ -1,85 +1,117 @@
 import type React from "react"
-import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Users, TrendingUp, LineChart } from "lucide-react"
+import { Search, BarChart2, Edit3 } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export default function HeroSection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-white to-slate-50">
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
       <div className="container px-4 md:px-6 mx-auto">
-        <div className="grid gap-6 lg:grid-cols-[1fr_600px] lg:gap-12 xl:grid-cols-[1fr_700px]">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_500px]">
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-normal sm:text-5xl xl:text-6xl text-slate-900">
-                Make smarter market decisions with data-driven insights
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                Elevate Your Writing with Instant Feedback
               </h1>
-              <p className="font-mono max-w-[600px] text-slate-700 md:text-xl">
-                Comprehensive market analysis tools to help you understand your
-                position, identify opportunities, and create winning strategies.
+              <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                Get real-time suggestions for tone, grammar, clarity, and
+                structure. Improve your content and optimize for SEO in seconds.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button asChild className="bg-teal-600 hover:bg-teal-700">
-                <Link href="#pricing" className="font-mono">Get Started</Link>
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                Try For Free
               </Button>
-              <Button asChild variant="outline">
-                <Link href="#how-it-works" className="font-mono">See How It Works</Link>
-              </Button>
+              <Button variant="outline">See How It Works</Button>
             </div>
-            <div className="flex items-center space-x-4 text-sm text-slate-600 pt-4">
-              <div className="flex items-center font-mono">
-                <CheckCircle className="mr-1 h-4 w-4 text-teal-600" />
-                <span>14-day free trial</span>
+            <div className="flex items-center gap-4 pt-4">
+              <div className="flex -space-x-2">
+                <Image
+                  src="/images/avatar-1.jpg"
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="w-[43px] h-[43px] rounded-full border-2 border-background object-center object-cover"
+                />
+                <Image
+                  src="/images/avatar-2.jpg"
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="w-[43px] h-[43px] rounded-full border-2 border-background object-center object-cover"
+                />
+                <Image
+                  src="/images/avatar-3.jpg"
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="w-[43px] h-[43px] rounded-full border-2 border-background object-center object-cover"
+                />
               </div>
-              <div className="flex items-center font-mono">
-                <CheckCircle className="mr-1 h-4 w-4 text-teal-600" />
-                <span>No credit card required</span>
+              <div className="text-sm text-muted-foreground">
+                Trusted by{" "}
+                <span className="font-medium text-foreground">10,000+</span>{" "}
+                writers & content creators
               </div>
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div className="relative w-full max-w-[600px] aspect-[4/3]">
-              <Image
-                src="/images/data-driven-insights.png"
-                width={450}
-                height={450}
-                alt="Dashboard preview"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col items-center rounded-lg border bg-white p-6 shadow-sm">
-            <BarChart3 className="h-10 w-10 text-teal-600 mb-4" />
-            <h3 className="text-lg font-semibold font-mono">SWOT Analysis</h3>
-            <p className="text-center text-sm text-slate-600 mt-2 font-mono">
-              Identify strengths, weaknesses, opportunities, and threats
-            </p>
-          </div>
-          <div className="flex flex-col items-center rounded-lg border bg-white p-6 shadow-sm">
-            <Users className="h-10 w-10 text-teal-600 mb-4" />
-            <h3 className="text-lg font-semibold font-mono">Personas & Competitors</h3>
-            <p className="text-center text-sm text-slate-600 mt-2 font-mono">
-              Understand your audience and competition landscape
-            </p>
-          </div>
-          <div className="flex flex-col items-center rounded-lg border bg-white p-6 shadow-sm">
-            <TrendingUp className="h-10 w-10 text-teal-600 mb-4" />
-            <h3 className="text-lg font-semibold font-mono">Go to Market Plan</h3>
-            <p className="text-center text-sm text-slate-600 mt-2 font-mono">
-              Create effective strategies for product launches
-            </p>
-          </div>
-          <div className="flex flex-col items-center rounded-lg border bg-white p-6 shadow-sm">
-            <LineChart className="h-10 w-10 text-teal-600 mb-4" />
-            <h3 className="text-lg font-semibold font-mono">Market Simulation</h3>
-            <p className="text-center text-sm text-slate-600 mt-2 font-mono">
-              Test scenarios before implementing in the real world
-            </p>
+            <Card className="w-full max-w-md border-purple-100 shadow-lg">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg">Content Analysis</CardTitle>
+                <CardDescription>
+                  Instant feedback on your writing
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="h-4 w-full rounded bg-purple-100"></div>
+                    <div className="h-4 w-[80%] rounded bg-purple-100"></div>
+                    <div className="h-4 w-[60%] rounded bg-purple-100"></div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-center gap-2 rounded-lg border border-purple-100 p-2">
+                      <div className="rounded-full bg-green-100 p-1">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                      </div>
+                      <div className="text-sm">Grammar</div>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-lg border border-purple-100 p-2">
+                      <div className="rounded-full bg-amber-100 p-1">
+                        <Edit3 className="h-4 w-4 text-amber-600" />
+                      </div>
+                      <div className="text-sm">Clarity</div>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-lg border border-purple-100 p-2">
+                      <div className="rounded-full bg-blue-100 p-1">
+                        <BarChart2 className="h-4 w-4 text-blue-600" />
+                      </div>
+                      <div className="text-sm">Structure</div>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-lg border border-purple-100 p-2">
+                      <div className="rounded-full bg-purple-100 p-1">
+                        <Search className="h-4 w-4 text-purple-600" />
+                      </div>
+                      <div className="text-sm">SEO</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  Analyze My Content
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </div>

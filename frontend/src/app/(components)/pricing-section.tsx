@@ -1,7 +1,6 @@
 "use client"
 
 import { PricingPlan } from "@/components/pricing-plan-item"
-import Link from "next/link"
 import { pricing_plans } from "../board/plans/data"
 
 // Section Header Component
@@ -9,15 +8,14 @@ const PricingSectionHeader = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4 text-center">
       <div className="space-y-2">
-        <div className="inline-block rounded-lg bg-teal-100 px-3 py-1 text-sm text-teal-700 font-mono">
+        <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-800">
           Pricing
         </div>
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-slate-900">
-          Choose the right plan for your business
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+          Choose Your Plan
         </h2>
-        <p className="max-w-[900px] text-slate-700 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-mono">
-          Flexible options to meet your market analysis needs, from startups to
-          enterprise
+        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          Simple, transparent pricing that grows with your needs
         </p>
       </div>
     </div>
@@ -27,12 +25,10 @@ const PricingSectionHeader = () => {
 // Contact Footer Component
 const ContactFooter = () => {
   return (
-    <div className="mt-12 text-center">
-      <p className="text-slate-700 font-mono">
-        Need a custom solution?{" "}
-        <Link href="#" className="font-medium text-teal-600 hover:underline">
-          Contact our sales team
-        </Link>
+    <div className="mx-auto max-w-3xl text-center mt-10">
+      <p className="text-muted-foreground">
+        All plans include a 14-day free trial. No credit card required. Cancel
+        anytime.
       </p>
     </div>
   )
@@ -56,9 +52,8 @@ export default function PricingSection() {
               description={plan.description}
               price={plan.price}
               features={plan.features}
-              buttonText={plan.buttonText}
-              popular={plan.popular}
-              onPaymentSuccess={() => {}}
+              isPopular={plan.isPopular}
+              buttonVariant={plan.buttonVariant}
             />
           ))}
         </div>

@@ -117,26 +117,26 @@ export const PlansPricingSection = () => {
           description={professionalPricingPlan?.description || ""}
           price={professionalPricingPlan?.price || 0}
           features={professionalPricingPlan?.features || []}
-          buttonText={professionalPricingPlan?.buttonText || ""}
-          popular
+          isPopular
           userPlan={userSubscription?.plan_code}
           userEmail={userEmail}
           planCode={professionalPlan?.plan_code}
           onPaymentSuccess={handleOnSuccess}
           isVerifyingPayment={isVerifying}
+          buttonVariant="default"
         />
         <PricingPlan
           title={enterprisePricingPlan?.title || ""}
           description={enterprisePricingPlan?.description || ""}
           price={enterprisePricingPlan?.price || 0}
           features={enterprisePricingPlan?.features || []}
-          buttonText={enterprisePricingPlan?.buttonText || ""}
-          popular={false}
+          isPopular={false}
           userPlan={userSubscription?.plan_code}
           userEmail={userEmail}
           planCode={enterprisePlan?.plan_code}
           onPaymentSuccess={handleOnSuccess}
           isVerifyingPayment={isVerifying}
+          buttonVariant="outline"
         />
       </div>
     </div>

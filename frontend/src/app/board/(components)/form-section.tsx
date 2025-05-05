@@ -1,131 +1,280 @@
 "use client"
 
-import { CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { Label } from "@radix-ui/react-label"
 import { Textarea } from "@/components/ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { GenerateAnalysisFormValues } from "../types"
+
+interface FormData {
+  user_content: string
+  tone: string
+  audience: string
+  content_type: string
+  length: string
+  focus_areas: string[]
+}
+
+// Define the available options
+const toneOptions = [
+  "friendly",
+  "professional",
+  "casual",
+  "formal",
+  "enthusiastic",
+  "authoritative",
+  "conversational",
+]
+
+const audienceOptions = [
+  "small business owners",
+  "corporate executives",
+  "general public",
+  "technical professionals",
+  "students",
+  "educators",
+  "healthcare professionals",
+]
+
+const contentTypeOptions = [
+  "blog post",
+  "social media post",
+  "email",
+  "newsletter",
+  "product description",
+  "website copy",
+  "press release",
+]
+
+const lengthOptions = [
+  "10% shorter",
+  "same length",
+  "10% longer",
+  "25% longer",
+  "50% longer",
+  "50% shorter",
+]
+
+const focusAreaOptions = [
+  { id: "clarity", label: "Clarity" },
+  { id: "persuasiveness", label: "Persuasiveness" },
+  { id: "engagement", label: "Engagement" },
+  { id: "seo", label: "SEO Optimization" },
+  { id: "grammar", label: "Grammar & Spelling" },
+  { id: "tone", label: "Tone Consistency" },
+  { id: "structure", label: "Structure" },
+]
 
 export const FormSection = ({
   onSubmit,
+  isSubmitting,
 }: {
   onSubmit: (values: GenerateAnalysisFormValues) => void
+  isSubmitting: boolean
 }) => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const values: GenerateAnalysisFormValues = {
-      idea: formData.get("business_idea") as string,
-      industry: formData.get("industry") as string,
-      audience: formData.get("audience") as string,
-      geography: formData.get("geography") as string,
-      competition: formData.get("competition") as string,
-      additional_info: formData.get("additional_info") as string,
+  const [formData, setFormData] = useState<FormData>({
+    user_content: "",
+    tone: "",
+    audience: "",
+    content_type: "",
+    length: "same length",
+    focus_areas: [],
+  })
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData({ ...formData, user_content: e.target.value })
+  }
+
+  const handleSelectChange = (name: keyof FormData, value: string) => {
+    setFormData({ ...formData, [name]: value })
+  }
+
+  const handleFocusAreaChange = (id: string, checked: boolean) => {
+    if (checked) {
+      setFormData({
+        ...formData,
+        focus_areas: [...formData.focus_areas, id],
+      })
+    } else {
+      setFormData({
+        ...formData,
+        focus_areas: formData.focus_areas.filter((area) => area !== id),
+      })
     }
-    onSubmit(values)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    onSubmit({
+      ...formData,
+      focus_areas: formData.focus_areas.join(","),
+    })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardContent className="grid gap-4">
-        {/* Enter your business idea */}
-        <div>
-          <label
-            htmlFor="business_idea"
-            className="text-gray-500 text-sm font-mono"
-          >
-            Enter your Business Idea
-          </label>
-          <Textarea
+    <form onSubmit={handleSubmit} className="p-6">
+      <div className="space-y-2">
+        <Label htmlFor="user_content" className="text-base">
+          Your Content
+        </Label>
+        <Textarea
+          id="user_content"
+          placeholder="Paste your content here..."
+          className="min-h-[200px] border-purple-100 focus-visible:ring-purple-500"
+          value={formData.user_content}
+          onChange={handleContentChange}
+          required
+        />
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label htmlFor="tone" className="text-base">
+            Tone
+          </Label>
+          <Select
+            value={formData.tone}
+            onValueChange={(value) => handleSelectChange("tone", value)}
             required
-            name="business_idea"
-            className="mt-2"
-            placeholder="e.g. A mobile app that connects local farmers directly with restaurants"
-          />
-        </div>
-
-        {/* Industry */}
-        <div>
-          <label htmlFor="industry" className="text-gray-500 text-sm font-mono">
-            Industry
-          </label>
-          <Input
-            required
-            name="industry"
-            className="mt-2"
-            placeholder="e.g. Food & Agriculture Technology"
-          />
-        </div>
-
-        {/* Audience */}
-        <div>
-          <label htmlFor="audience" className="text-gray-500 text-sm font-mono">
-            Describe your Audience
-          </label>
-          <Input
-            required
-            name="audience"
-            className="mt-2"
-            placeholder="e.g. Small to medium restaurants and local farmers"
-          />
-        </div>
-
-        {/* Geography */}
-        <div>
-          <label
-            htmlFor="geography"
-            className="text-gray-500 text-sm font-mono"
           >
-            Geography
-          </label>
-          <Input
+            <SelectTrigger
+              id="tone"
+              className="border-purple-100 focus:ring-purple-500"
+            >
+              <SelectValue placeholder="Select tone" />
+            </SelectTrigger>
+            <SelectContent>
+              {toneOptions.map((tone) => (
+                <SelectItem key={tone} value={tone}>
+                  {tone.charAt(0).toUpperCase() + tone.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="audience" className="text-base">
+            Target Audience
+          </Label>
+          <Select
+            value={formData.audience}
+            onValueChange={(value) => handleSelectChange("audience", value)}
             required
-            name="geography"
-            className="mt-2"
-            placeholder="e.g. Starting in the Pacific Northwest, then expanding nationally"
-          />
+          >
+            <SelectTrigger
+              id="audience"
+              className="border-purple-100 focus:ring-purple-500"
+            >
+              <SelectValue placeholder="Select audience" />
+            </SelectTrigger>
+            <SelectContent>
+              {audienceOptions.map((audience) => (
+                <SelectItem key={audience} value={audience}>
+                  {audience.charAt(0).toUpperCase() + audience.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        {/* Competition */}
-        <div>
-          <label
-            htmlFor="competition"
-            className="text-gray-500 text-sm font-mono"
-          >
-            Competition
-          </label>
-          <Input
+        <div className="space-y-2">
+          <Label htmlFor="content_type" className="text-base">
+            Content Type
+          </Label>
+          <Select
+            value={formData.content_type}
+            onValueChange={(value) => handleSelectChange("content_type", value)}
             required
-            name="competition"
-            className="mt-2"
-            placeholder="e.g. Some farm-to-table platforms exist but focus on consumers rather than B2B"
-          />
+          >
+            <SelectTrigger
+              id="content_type"
+              className="border-purple-100 focus:ring-purple-500"
+            >
+              <SelectValue placeholder="Select content type" />
+            </SelectTrigger>
+            <SelectContent>
+              {contentTypeOptions.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        {/* Additional information */}
-        <div>
-          <label
-            htmlFor="additional_info"
-            className="text-gray-500 text-sm font-mono"
+        <div className="space-y-2">
+          <Label htmlFor="length" className="text-base">
+            Desired Length
+          </Label>
+          <Select
+            value={formData.length}
+            onValueChange={(value) => handleSelectChange("length", value)}
+            required
           >
-            Additional Information
-          </label>
-          <Textarea
-            name="additional_info"
-            className="mt-2"
-            placeholder="e.g. Planning to integrate delivery logistics as a premium feature"
-          />
+            <SelectTrigger
+              id="length"
+              className="border-purple-100 focus:ring-purple-500"
+            >
+              <SelectValue placeholder="Select length" />
+            </SelectTrigger>
+            <SelectContent>
+              {lengthOptions.map((length) => (
+                <SelectItem key={length} value={length}>
+                  {length}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
+      </div>
 
-        {/* Submit button */}
-        <div>
-          <button
-            type="submit"
-            className="text-sm px-10 w-fit bg-teal-500 text-white font-mono font-medium py-2 rounded-md hover:bg-teal-600 transition duration-200"
-          >
-            Submit
-          </button>
+      <div className="space-y-3">
+        <Label className="text-base">Focus Areas</Label>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {focusAreaOptions.map((option) => (
+            <div key={option.id} className="flex items-center space-x-2">
+              <Checkbox
+                id={option.id}
+                checked={formData.focus_areas.includes(option.id)}
+                onCheckedChange={(checked) =>
+                  handleFocusAreaChange(option.id, checked === true)
+                }
+              />
+              <Label
+                htmlFor={option.id}
+                className="text-sm font-normal cursor-pointer"
+              >
+                {option.label}
+              </Label>
+            </div>
+          ))}
         </div>
-      </CardContent>
+      </div>
+
+      <Button
+        type="submit"
+        className="mt-10 w-full bg-purple-600 hover:bg-purple-700"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Enhancing Content...
+          </>
+        ) : (
+          "Enhance My Content"
+        )}
+      </Button>
     </form>
   )
 }

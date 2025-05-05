@@ -4,8 +4,9 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { useSignupMutation } from "../(hooks)"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { useToastContext } from "@/components/toast"
+import { CardContent, CardFooter } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 
 export default function FormSection() {
   const { setNotification } = useToastContext()
@@ -80,137 +81,95 @@ export default function FormSection() {
   }
 
   return (
-    <div className="grid gap-4">
-      <form className="grid gap-4" onSubmit={handleSubmit}>
-        <div className="grid gap-2">
-          <label
-            htmlFor="email"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Email
-          </label>
+    <form onSubmit={handleSubmit}>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
           <Input
             id="email"
-            name="email"
             type="email"
-            placeholder="name@example.com"
+            name="email"
             required
-            className="border-slate-200"
+            placeholder="your@email.com"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="grid gap-2">
-          <label
-            htmlFor="first_name"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            First Name
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="first_name">First Name</Label>
           <Input
             id="first_name"
-            name="first_name"
             type="text"
-            placeholder="John"
+            name="first_name"
             required
-            className="border-slate-200"
+            placeholder="John"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="grid gap-2">
-          <label
-            htmlFor="last_name"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Last Name
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="last_name">Last Name</Label>
           <Input
             id="last_name"
-            name="last_name"
             type="text"
-            placeholder="Doe"
+            name="last_name"
             required
-            className="border-slate-200"
+            placeholder="Doe"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="grid gap-2">
-          <label
-            htmlFor="company_name"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Company Name
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="company_name">Company Name</Label>
           <Input
             id="company_name"
-            name="company_name"
             type="text"
-            placeholder="Rheutical Corp"
+            name="company_name"
             required
-            className="border-slate-200"
+            placeholder="React Inc."
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="grid gap-2">
-          <label
-            htmlFor="password"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Password
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
           <Input
             id="password"
             type="password"
             name="password"
-            placeholder="Create a password"
+            placeholder="********"
             required
-            className="border-slate-200"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
-          <p className="text-xs text-slate-500">
-            Password must be at least 8 characters long
+          <p className="text-xs text-muted-foreground">
+            Password must be at least 7 characters long
           </p>
         </div>
-        <div className="grid gap-2">
-          <label
-            htmlFor="confirm-password"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Confirm Password
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="confirm-password">Confirm Password</Label>
           <Input
             id="confirm-password"
             name="confirm-password"
-            type="password"
-            placeholder="Confirm your password"
             required
-            className="border-slate-200"
+            placeholder="********"
+            type="password"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="flex items-start space-x-2 pt-2">
-          <Checkbox id="terms" name="terms" required />
-          <label
-            htmlFor="terms"
-            className="font-mono text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            I agree to the{" "}
-            <Link
-              href="#"
-              className="font-medium text-teal-600 hover:text-teal-700 hover:underline"
-            >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="#"
-              className="font-medium text-teal-600 hover:text-teal-700 hover:underline"
-            >
-              Privacy Policy
-            </Link>
-          </label>
-        </div>
+      </CardContent>
+      <CardFooter className="mt-5 flex flex-col space-y-4">
         <Button
-          type="submit"
           disabled={isPending}
-          className="font-mono w-full bg-teal-600 hover:bg-teal-700"
+          className="w-full bg-purple-600 hover:bg-purple-700"
         >
           {isPending ? "Loading..." : "Create Account"}
         </Button>
-      </form>
-    </div>
+        <div className="text-center text-sm">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-purple-600 hover:text-purple-700 hover:underline underline-offset-4"
+          >
+            Sign in
+          </Link>
+        </div>
+      </CardFooter>
+    </form>
   )
 }

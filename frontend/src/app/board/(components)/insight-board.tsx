@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardDescription,
 } from "@/components/ui/card"
-import { Loader2 } from "lucide-react"
 import { FormSection } from "./form-section"
 import { RenderInsights } from "./render-insights"
 import { usePostGenerateAnalysis } from "../(hooks)"
@@ -42,12 +41,10 @@ export const InsightBoard = () => {
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="font-sans">
-            Refine your Business Concept
-          </CardTitle>
+          <CardTitle className="font-sans">Content Enhancement</CardTitle>
           <CardDescription className="font-sans">
-            Share your business vision, target market, and competition to
-            receive actionable feedback.
+            Enter your content and preferences to receive AI-powered improvement
+            suggestions
           </CardDescription>
         </CardHeader>
 
@@ -73,19 +70,8 @@ const Board = ({
   restart: () => void
   onSubmit: (values: GenerateAnalysisFormValues) => void
 }) => {
-  if (isLoading) {
-    return (
-      <div className="mt-2 flex flex-col items-center justify-center">
-        <Loader2 size={35} className="animate-spin text-gray-500" />
-        <p className="text-sm font-sans text-gray-500 mt-1">
-          Crunching your Insights...
-        </p>
-      </div>
-    )
-  }
-
   if (!data) {
-    return <FormSection onSubmit={onSubmit} />
+    return <FormSection onSubmit={onSubmit} isSubmitting={isLoading} />
   }
 
   return <RenderInsights insights={data} restart={restart} />

@@ -27,7 +27,7 @@ export const RenderInsights = ({
   return (
     <div className="mt-2 flex flex-col items-center justify-center">
       <p className="text-sm font-sans text-gray-500">
-        Insights generated successfully!
+        Content enhanced successfully!
       </p>
 
       <div id="insights" className="p-6 sm:p-10">
@@ -50,7 +50,7 @@ export const RenderInsights = ({
             className="bg-gray-600 text-white hover:bg-lemon/85"
             onClick={restart}
           >
-            Generate New Insights
+            Enhance Again
           </Button>
         </div>
       </div>

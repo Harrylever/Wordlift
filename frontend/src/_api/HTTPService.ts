@@ -19,7 +19,7 @@ const handleError = async (error: AxiosError) => {
 
   if (isUnaAuthenticated) {
     if (!isAuthPage) {
-      await httpService.get("/auth/logout")
+      await httpService.post("/auth/logout")
       window.location.href = "/"
     }
     return

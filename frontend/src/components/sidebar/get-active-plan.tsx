@@ -40,7 +40,7 @@ export const GetSidebarUserInfo = () => {
     return (
       <>
         <ReturnUserName firstName={firstName} />
-        <span className="block text-xs text-slate-500">Starter Plan</span>
+        <span className="block text-xs text-slate-500">Free Plan</span>
       </>
     )
   }
@@ -53,7 +53,7 @@ export const GetSidebarUserInfo = () => {
     return (
       <>
         <ReturnUserName firstName={firstName} />
-        <span className="block text-xs text-slate-500">Starter Plan</span>
+        <span className="block text-xs text-slate-500">Free Plan</span>
       </>
     )
   }

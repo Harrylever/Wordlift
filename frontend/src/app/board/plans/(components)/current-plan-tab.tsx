@@ -11,12 +11,12 @@ interface CurrentPlanTabProps {
 
 export const CurrentPlanTab = ({ plan }: CurrentPlanTabProps) => {
   if (!plan)
-    return <PlanTab planName="Starter" amount={0} interval="No interval" />
+    return <PlanTab planName="Free" amount={0} interval="No interval" />
 
   const marketInsightPlan = marketinsights_plans.find((p) => p.plan_code === plan.plan_code)
 
   if (!marketInsightPlan)
-    return <PlanTab planName="Starter" amount={0} interval="No interval" />
+    return <PlanTab planName="Free" amount={0} interval="No interval" />
 
   return (
     <PlanTab

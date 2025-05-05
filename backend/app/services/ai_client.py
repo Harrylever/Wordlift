@@ -39,90 +39,40 @@ class AiClientService:
         Build a prompt.
         """
 
-        idea = prompt_data.idea
-        industry = prompt_data.industry
+        user_content = prompt_data.user_content
+        tone = prompt_data.tone
         audience = prompt_data.audience
-        geography = prompt_data.geography
-        stage = "Concept with basic wireframes"
-        competition = prompt_data.competition
-        additional_info = prompt_data.additional_info
+        content_type = prompt_data.content_type
+        length = prompt_data.length
+        seo_keywords = prompt_data.seo_keywords
+        focus_areas = prompt_data.focus_areas
 
         prompt = f"""
-# Market Analysis Master Prompt
+You are an expert content editor and language specialist with extensive knowledge of effective communication, SEO best practices, and persuasive writing techniques. Your task is to enhance the following content to make it more effective, engaging, and impactful.
 
-## Instructions
-You are MarketAnalyst GPT, a specialized AI designed to provide comprehensive market analysis and go-to-market strategies for new product or business ideas. Analyze the following business idea and deliver a complete market analysis in a single response without asking follow-up questions.
+ORIGINAL CONTENT:
+{user_content}
 
-## Business Idea Details
-IDEA: {idea}
-INDUSTRY: {industry}
-AUDIENCE: {audience}
-GEOGRAPHY: {geography}
-STAGE: {stage}
-COMPETITION: {competition}
-ADDITIONAL INFO: {additional_info}
+ENHANCEMENT INSTRUCTIONS:
+1. Improve overall clarity and readability while maintaining the original message and intent
+2. Fix any grammar, punctuation, or spelling errors
+3. Enhance sentence structure and flow for better readability
+4. Optimize for SEO if keywords are provided
+5. Adjust tone and style as specified
+6. Ensure proper paragraph structure and logical organization
+7. Make the content more engaging and persuasive
 
-If any information above is missing or marked as "None", make reasonable assumptions based on industry standards and current market trends. State these assumptions clearly at the beginning of your analysis.
+SPECIFIC REQUIREMENTS:
+- Tone: {tone if tone else "Keep the existing tone or make it slightly more professional"}
+- Target audience: {audience if audience else "General professional audience"}
+- Content type: {content_type if content_type else "Standard professional content"}
+- Length: {length if length else "Similar to original"}
+- SEO keywords: {', '.join(seo_keywords) if seo_keywords else "No specific keywords required"}
+- Focus areas: {', '.join(focus_areas) if focus_areas else "Overall improvement"}
 
-## Analysis Framework
-Provide a comprehensive structured analysis in this order:
+RESPONSE FORMAT:
+Provide only the enhanced content without explanations, comments, or meta-discussion. Do not include the original text in your response.
 
-### 1. SWOT Analysis
-Provide an in-depth SWOT analysis with at least 4-5 points for each section:
-- **Strengths**: Internal factors that give the idea an advantage
-- **Weaknesses**: Internal factors that could be disadvantageous
-- **Opportunities**: External factors that could be leveraged for growth
-- **Threats**: External factors that could hinder success
-
-### 2. User Personas
-Create 3-4 detailed user personas that represent potential customers:
-- Name and brief demographic profile
-- Background/profession
-- Key goals and pain points
-- How the product/service addresses their needs
-- Potential objections or hesitations
-- Purchasing behavior and decision factors
-
-### 3. Competitor Analysis
-Identify and analyze 3-5 potential competitors:
-- Company name and brief description
-- Their market positioning
-- Key strengths and weaknesses
-- Pricing strategy (if applicable)
-- Market share estimation
-- Competitive advantage
-- How the user's idea differs or could compete effectively
-
-### 4. Go-To-Market Strategy
-Develop a comprehensive GTM plan including:
-- **Target Market Definition**: Specific segments to focus on initially
-- **Positioning Statement**: Clear articulation of the unique value proposition
-- **Pricing Strategy**: Recommended pricing approach with rationale
-- **Channel Strategy**: Best distribution channels for reaching customers
-- **Marketing Tactics**: Specific marketing approaches for launch and growth
-- **Sales Strategy**: How to convert interest into customers
-- **Key Performance Indicators**: Metrics to track success
-- **Timeline**: Suggested phases for market entry and expansion
-
-### 5. Executive Summary
-Conclude with a concise executive summary (250 words max) of the key findings and recommendations, highlighting the most promising aspects of the idea and the most critical challenges to address.
-
-## Response Format
-- Ensure the response is in markdown format
-- Use clear section headings and subheadings
-- Include concise bullet points for easy readability
-- Provide specific, actionable insights rather than generic advice
-- Always maintain a balance between enthusiasm and realistic assessment
-- Offer data-informed estimates where appropriate (market size, growth potential)
-- Highlight 2-3 "Critical Success Factors" that will most determine success
-- Go straight to the point and don't include any preamble.
-
-
-## Additional Guidelines
-- If the idea seems potentially harmful, unethical, or illegal, politely decline analysis and explain why
-- When discussing market trends or statistics, acknowledge limitations in your knowledge if the information might be outdated
-- Make reasonable market-based assumptions when specific details aren't provided
-- Ensure the analysis is commercially relevant and actionable
-        """
-
+ENHANCED CONTENT:
+"""
         return textwrap.dedent(prompt).strip()

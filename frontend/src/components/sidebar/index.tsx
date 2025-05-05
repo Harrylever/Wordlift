@@ -8,7 +8,7 @@ import { SidebarItem } from "./sidebar-item"
 import { TitleSection } from "./title-section"
 import { ToggleSideBar } from "./toggle-sidebar"
 import { usePathname, useRouter } from "next/navigation"
-import { MarketInsightLogo } from "../ui/market-insight-logo"
+import { WordLiftLogo } from "../ui/wordlift-logo"
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -31,7 +31,7 @@ export const Sidebar = () => {
     >
       <div className="mb-3 border-b border-zinc-300 py-3.5 px-3">
         <Link href="/">
-          <MarketInsightLogo isCollapsed={!isOpen} />
+          <WordLiftLogo isCollapsed={!isOpen} />
         </Link>
       </div>
 

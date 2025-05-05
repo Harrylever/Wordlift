@@ -25,45 +25,46 @@ export const marketinsights_plans: IPlan[] = [
 
 export const pricing_plans = [
   {
-    title: "Starter",
-    description: "Perfect for small businesses and startups",
+    title: "Free",
+    description: "Perfect for trying out WordLift",
     price: 0,
     features: [
-      { included: true, text: "20 Basic SWOT Analysis" },
-      { included: true, text: "2 Customer Personas" },
-      { included: true, text: "5 Competitor Profiles" },
-      { included: true, text: "Basic Go to Market Template" },
-      { included: false, text: "Market Simulation" },
+      "Basic grammar & spelling checks",
+      "Up to 500 words per analysis",
+      "5 analyses per day",
+      "Basic SEO suggestions"
     ],
-    buttonText: "Get Started",
-    popular: false,
+    isPopular: false,
+    buttonVariant: "outline"
   },
   {
     title: "Professional",
-    description: "For growing businesses and teams",
-    price: 20000,
+    description: "For professional writers & bloggers",
+    price: 23000,
     features: [
-      { included: true, text: "200 Advanced SWOT Analysis" },
-      { included: true, text: "5 Customer Personas" },
-      { included: true, text: "10 Competitor Profiles" },
-      { included: true, text: "Complete Go to Market Toolkit" },
-      { included: true, text: "Basic Market Simulation" },
+      "Advanced grammar & style analysis",
+      "Up to 3,000 words per analysis",
+      "Unlimited analyses",
+      "Advanced SEO optimization",
+      "Tone & clarity suggestions",
+      "Browser extension"
     ],
-    buttonText: "Get Started",
-    popular: true,
+    isPopular: true,
+    buttonVariant: "default"
   },
   {
     title: "Enterprise",
-    description: "For large organizations with complex needs",
-    price: 52000,
+    description: "For enterprise teams & agencies",
+    price: 55000,
     features: [
-      { included: true, text: "520 Enterprise SWOT Analysis" },
-      { included: true, text: "Unlimited Customer Personas" },
-      { included: true, text: "Unlimited Competitor Profiles" },
-      { included: true, text: "Custom Go to Market Strategy" },
-      { included: true, text: "Advanced Market Simulation" },
+      "Everything in Pro",
+      "Up to 10,000 words per analysis",
+      "Team collaboration features",
+      "Brand voice customization",
+      "Content performance analytics",
+      "Priority support"
     ],
-    buttonText: "Get Started",
-    popular: false,
-  },
+    isPopular: false,
+    buttonVariant: "outline"
+  }
 ]

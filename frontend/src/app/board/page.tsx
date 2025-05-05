@@ -5,7 +5,7 @@ export default function BoardPage() {
     <div className="relative flex">
       <div className="container p-10">
         <h2 className="font-mono text-xl font-semibold">
-          Build your Market Insight
+          Enhance Your Content
         </h2>
 
         <div className="grid mt-10">

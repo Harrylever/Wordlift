@@ -1,8 +1,8 @@
 export interface GenerateAnalysisFormValues {
-  idea: string
-  industry: string
+  user_content: string
+  tone: string
   audience: string
-  geography: string
-  competition: string
-  additional_info: string
+  content_type: string
+  length: string
+  focus_areas: string
 }

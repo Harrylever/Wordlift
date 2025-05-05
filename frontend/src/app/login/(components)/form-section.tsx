@@ -4,6 +4,10 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useLoginMutation } from "../(hooks)"
 import { useToastContext } from "@/components/toast"
+import { CardContent, CardFooter } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function FormSection() {
   const { setNotification } = useToastContext()
@@ -60,50 +64,62 @@ export default function FormSection() {
   }
 
   return (
-    <div className="grid gap-4">
-      <form className="grid gap-4" onSubmit={handleSubmit}>
-        <div className="grid gap-2">
-          <label
-            htmlFor="email"
-            className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Email
-          </label>
+    <form onSubmit={handleSubmit}>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
           <Input
             id="email"
             type="email"
             name="email"
-            placeholder="name@example.com"
-            required
-            className="border-slate-200"
+            placeholder="your@email.com"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
-        <div className="grid gap-2">
+        <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label
-              htmlFor="password"
-              className="font-mono text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            <Label htmlFor="password">Password</Label>
+            {/* <Link
+              href="/forgot-password"
+              className="text-xs text-purple-600 hover:text-purple-700 hover:underline underline-offset-4"
             >
-              Password
-            </label>
+              Forgot your password?
+            </Link> */}
           </div>
           <Input
             id="password"
             name="password"
             type="password"
-            placeholder="••••••••"
-            required
-            className="border-slate-200"
+            className="border-purple-100 focus-visible:ring-purple-500"
           />
         </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox id="remember" />
+          <Label
+            htmlFor="remember"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Remember me
+          </Label>
+        </div>
+      </CardContent>
+      <CardFooter className="mt-5 flex flex-col space-y-4">
         <Button
-          type="submit"
           disabled={isPending}
-          className="w-full bg-teal-600 hover:bg-teal-700 font-mono"
+          className="w-full bg-purple-600 hover:bg-purple-700"
         >
           {isPending ? "Loading..." : "Sign In"}
         </Button>
-      </form>
-    </div>
+        <div className="text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/signup"
+            className="text-purple-600 hover:text-purple-700 hover:underline underline-offset-4"
+          >
+            Sign up
+          </Link>
+        </div>
+      </CardFooter>
+    </form>
   )
 }

@@ -11,9 +11,10 @@ class PromptDto(BaseModel):
     This class contains the DTO for the prompt
     """
 
-    idea: str = Field(..., min_length=20, description="Idea description")
-    industry: str = Field(..., min_length=5, description="Idea industry")
-    audience: str = Field(..., min_length=4, description="Idea audience")
-    geography: str = Field(..., min_length=10, description="Geography of execution")
-    competition: str = Field(..., min_length=20, description="Existing competition")
-    additional_info: Optional[str] = None
+    user_content: str = Field(..., min_length=50, description="User content")
+    tone: str = Field(..., min_length=4, description="Expected tone")
+    audience: str = Field(..., min_length=5, description="Target audience")
+    content_type: str = Field(..., min_length=5, description="Expected content type")
+    length: str = Field(..., description="Expected length")
+    seo_keywords: Optional[str] = Field(None, description="SEO keywords")
+    focus_areas: Optional[str] = Field(None, description="Focus areas")

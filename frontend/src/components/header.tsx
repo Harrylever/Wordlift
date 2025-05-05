@@ -2,12 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { useMobile } from "@/hooks/use-mobile"
+import { Edit3, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { MarketInsightLogo } from "./ui/market-insight-logo"
+import { useState } from "react"
+import { useMobile } from "@/hooks/use-mobile"
 
 export default function Header() {
   const isMobile = useMobile()
@@ -18,12 +17,11 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between mx-auto">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
-          <Link href="/">
-            <MarketInsightLogo />
-          </Link>
+          <Edit3 className="h-6 w-6 text-purple-600" />
+          <span className="text-xl font-bold">WordLift</span>
         </div>
 
         {isMobile ? (
@@ -65,13 +63,6 @@ export default function Header() {
                   >
                     Pricing
                   </Link>
-                  <Link
-                    href="#"
-                    onClick={toggleMenu}
-                    className="font-mono text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    Blog
-                  </Link>
                   <div className="pt-4">
                     <Button asChild className="w-full" variant="outline">
                       <Link href="/login">Log in</Link>
@@ -80,9 +71,9 @@ export default function Header() {
                   <div>
                     <Button
                       asChild
-                      className="w-full bg-teal-600 hover:bg-teal-700"
+                      className="w-full bg-purple-600 hover:bg-purple-700"
                     >
-                      <Link href="/signup">Sign up</Link>
+                      <Link href="/signup">Get Started</Link>
                     </Button>
                   </div>
                 </nav>
@@ -110,19 +101,17 @@ export default function Header() {
               >
                 Pricing
               </Link>
-              <Link
-                href="#"
-                className="font-mono text-sm font-medium transition-colors hover:text-primary"
-              >
-                Blog
-              </Link>
             </nav>
             <div className="flex items-center gap-4">
               <Button asChild variant="ghost">
-                <Link href="/login" className="font-mono">Log in</Link>
+                <Link href="/login" className="font-mono">
+                  Log in
+                </Link>
               </Button>
-              <Button asChild className="bg-teal-600 hover:bg-teal-700">
-                <Link href="/signup" className="font-mono">Sign up</Link>
+              <Button asChild className="bg-purple-600 hover:bg-purple-700">
+                <Link href="/signup" className="font-mono">
+                  Get Started
+                </Link>
               </Button>
             </div>
           </>

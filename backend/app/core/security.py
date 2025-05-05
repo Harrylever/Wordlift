@@ -16,7 +16,7 @@ from app.db.session import get_db
 from app.orm.repositories.user.user_repository import UserRepository
 
 ALGORITHM = "HS256"
-SECRET_KEY = "sumsecretkeyamiright"
+SECRET_KEY = "sumsecretkeyamiright300"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
