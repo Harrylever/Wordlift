@@ -2,8 +2,7 @@
 This module contains the API routes for the auth operations
 """
 
-from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, HTTPException, status, Depends, Response
+from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
 from app.orm.dtos.auth.auth import LoginDto
@@ -32,7 +31,7 @@ class AuthAPI:
         self.session = session
         self.auth_service = AuthService(session)
 
-    async def login_for_access_token(self, form_data: LoginDto, response: Response):
+    async def login_for_access_token(self, form_data: LoginDto):
         """Login for access token"""
         user = await authenticate_user(
             form_data.email, form_data.password, self.session
@@ -45,17 +44,6 @@ class AuthAPI:
             )
 
         access_token = await create_access_token(data={"sub": user.email})
-
-        response.set_cookie(
-            key="access_token",
-            value=access_token,
-            httponly=False,
-            secure=True,
-            samesite="none",
-            expires=datetime.now(timezone.utc) + timedelta(days=7),
-            path="/",
-        )
-
         return {"access_token": access_token, "token_type": "bearer"}
 
     async def create_account(self, form_data: CreateUserDto):
@@ -73,10 +61,10 @@ async def get_auth_api(
 
 @router.post("/token")
 async def login_for_access_token(
-    form_data: LoginDto, response: Response, auth_api: AuthAPI = Depends(get_auth_api)
+    form_data: LoginDto, auth_api: AuthAPI = Depends(get_auth_api)
 ):
     """Login user"""
-    return await auth_api.login_for_access_token(form_data, response)
+    return await auth_api.login_for_access_token(form_data)
 
 
 @router.post("/create-account", status_code=201)
@@ -85,12 +73,3 @@ async def create_account(
 ):
     """Create account"""
     return await auth_api.create_account(form_data)
-
-
-@router.post("/logout")
-async def logout(
-    response: Response,
-):
-    """Logout user"""
-    response.delete_cookie(key="access_token")
-    return {"status": True}

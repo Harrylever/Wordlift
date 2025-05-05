@@ -1,6 +1,6 @@
 "use client"
 
-import { getCookie } from "@/utils/auth"
+import { getToken, removeToken } from "@/utils/auth"
 import axios, { AxiosError, AxiosResponse } from "axios"
 
 declare module "axios" {
@@ -19,7 +19,7 @@ const handleError = async (error: AxiosError) => {
 
   if (isUnaAuthenticated) {
     if (!isAuthPage) {
-      await httpService.post("/auth/logout")
+      removeToken("access_token")
       window.location.href = "/"
     }
     return
@@ -40,7 +40,7 @@ const httpService = axios.create({
 })
 
 httpService.interceptors.request.use((config) => {
-  const token = getCookie("access_token")
+  const token = getToken("access_token")
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

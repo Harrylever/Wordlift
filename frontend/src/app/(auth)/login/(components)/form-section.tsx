@@ -1,13 +1,14 @@
 "use client"
 
+import Link from "next/link"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { useLoginMutation } from "../(hooks)"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useToastContext } from "@/components/toast"
 import { CardContent, CardFooter } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import Link from "next/link"
-import { Checkbox } from "@/components/ui/checkbox"
+import { setToken } from "@/utils/auth"
 
 export default function FormSection() {
   const { setNotification } = useToastContext()
@@ -56,6 +57,8 @@ export default function FormSection() {
         type: "success",
         message: "Login successful",
       })
+
+      setToken("access_token", response.access_token)
       window.location.href = "/board"
     } catch (error) {
       // Handle error (e.g., show error message)

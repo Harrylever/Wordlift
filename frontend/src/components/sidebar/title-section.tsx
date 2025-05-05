@@ -6,32 +6,15 @@ import { motion } from "motion/react"
 import { ChevronDown, CircleUser } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { GetSidebarUserInfo } from "./get-active-plan"
-import { useLogout } from "@/_api/hooks"
-import { useToastContext } from "../toast"
+import { removeToken } from "@/utils/auth"
 
 export const TitleSection = ({ open }: { open: boolean }) => {
-  const { mutateAsync: logout } = useLogout()
-  const { setNotification } = useToastContext()
-
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(true)
 
   const handleLogout = () => {
-    try {
-      logout().then(() => {
-        setNotification({
-          type: "error",
-          message: "Logout successful. Redirecting...",
-        })
-        router.push("/?signOutRequest=true")
-      })
-    } catch (error) {
-      console.error("Logout error:", error)
-      setNotification({
-        type: "error",
-        message: "Logout failed. Please try again.",
-      })
-    }
+    removeToken("access_token")
+    router.push("/?signOutRequest=true")
   }
 
   return (

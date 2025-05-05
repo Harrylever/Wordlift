@@ -4,7 +4,7 @@ It is responsible for validating the JWT token and the user's credentials.
 """
 
 from uuid import UUID
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Annotated, Optional, Any, Dict
 from pydantic import BaseModel
 from passlib.context import CryptContext
@@ -109,13 +109,19 @@ async def get_current_user(
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
+        expire_at: datetime = payload.get("exp")
+
+        if expire_at is None:
+            raise credentials_exception
 
         if email is None:
             raise credentials_exception
 
+        if datetime.now() > datetime.fromtimestamp(expire_at):
+            raise credentials_exception
+
         token_data = TokenData(email=email)
     except JWTError as exc:
-        print("JWT Error:", exc)
         raise credentials_exception from exc
 
     user = await get_user(token_data.email, db)
@@ -131,9 +137,9 @@ async def create_access_token(
     """Create access token"""
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.now() + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now() + timedelta(minutes=15)
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
 
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
